@@ -1,2 +1,4 @@
 ---
 BACKEND_HOST: <private IP of backend server>
+app_path: "/usr/share/nginx/html"
+component: "frontend"
