@@ -1,0 +1,43 @@
+---
+- name: install nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: start nginx
+  ansible.builtin.service:
+    name: nginx
+    enabled: yes
+    state: started
+
+- name: download the fonrtend code
+  ansible.builtin.get_url:
+    src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+    dest: /tmp/frotend.zip
+    
+- name: remove default content in nginx. It remoes the html directory. we have to create again
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: create html directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: unzip the front end code
+  ansible.builtin.unarchive:
+    src: /tmp/frotend.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+- name: copy the frontend config file
+  ansible.builtin.template:
+    src: frotend.conf.j2
+    dest: /etc/nginx/default.d/frotend.conf
+
+- name: restart the nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    
