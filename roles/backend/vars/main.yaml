@@ -2,3 +2,5 @@
 login_host: "<private IP of DB>"
 login_user: "root"
 login_password: "ExpenseApp@1"
+app_path: "/app"
+component: "backend"
