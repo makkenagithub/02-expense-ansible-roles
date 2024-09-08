@@ -35,9 +35,7 @@
   ansible.builtin.template:
     src: frotend.conf.j2
     dest: /etc/nginx/default.d/frotend.conf
+  notify:            #it wll search for it in handlers directory
+  - restart the nginx
 
-- name: restart the nginx
-  ansible.builtin.service:
-    name: nginx
-    state: restarted
-    
+
