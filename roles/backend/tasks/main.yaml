@@ -38,9 +38,9 @@
   args:
     chdir: /app
 
-- name: copy backend.service file
-  ansible.builtin.copy:
-    src: backend.service  # source file in ansible server (control node)
+- name: copy backend.service file  # copy module works for files for without variables. we use template module
+  ansible.builtin.template:
+    src: backend.service.j2  # source file in templates directory with j2 and varaibles will be loaded from /vars directory in the backend role
     dest: /etc/systemd/system/backend.service  # destination in ansible remote server (managed node)
     
 - name: install PyMySQL and cryptograpgy to connect to DB
