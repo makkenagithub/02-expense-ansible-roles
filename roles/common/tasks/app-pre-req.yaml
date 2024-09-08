@@ -1,0 +1,18 @@
+---
+- name: "remove {{app_path}} directory"
+  ansible.builtin.file:
+    path: "{{app_path}} "
+    state: absent
+  ignore_errors: yes
+
+- name: "create {{app_path}} directry if not exist"
+  ansible.builtin.file:
+    path: "{{app_path}}"
+    state: directory
+
+- name: "download and unzip / extract the {{component}} code"
+  ansible.builtin.unarchive:
+    src: "https://expense-builds.s3.us-east-1.amazonaws.com/expense-{{component}}-v2.zip"
+    dest: "{{app_path}}"
+    remot_src: yes
+    
