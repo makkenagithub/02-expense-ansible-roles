@@ -18,11 +18,15 @@
     name: expense
 
 - name: import the tasks from common role
+  tags:
+  - deployment
   ansible.builtin.import_role:
     name: common
     tasks_from: app-pre-req  # give tasks from which yaml file
 
 - name: install npm class dependencies
+  tags:
+  - deployment
   ansible.builtin.command: npm install
   args:
     chdir: /app
@@ -49,6 +53,8 @@
     name: all
 
 - name: systemctl daemon reload and enable and restart backend service
+  tags:
+  - deployment
   ansible.builtin.systemd_service:
     name: backend
     daemon_reload: true
