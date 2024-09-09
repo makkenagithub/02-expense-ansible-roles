@@ -2,5 +2,12 @@
 - name: install mysql
   hosts: mysql
   become: true
+  # cretae ansible vault file in /vars/expense in ansible server and store passwords as mentioned in /vars directory.
+  # we have to give ask_vault_pass=ture in ansible config file, which exists in current directory.
+  # ansible-vault create credentials_mysql.yaml
+  # ansible-vault view credentials_mysql.yaml
+  # ansible-vault edit credentials_mysql.yaml
+  vars_files:
+  - /var/expense/credentials_mysql.yaml
   roles:
   - mysql
